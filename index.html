@@ -1,11 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login - Smart College</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <h1 style="color: aqua;">hello guys welcome to campus 360</h1> 
+
+<body class="bg-light">
+
+    <div class="auth-wrapper">
+        <div class="auth-card">
+
+            <div class="auth-header">
+                <h2>Welcome</h2>
+                <p>Login to your Smart College account</p>
+            </div>
+
+            <!-- Alert Container for displaying errors and success messages via JS -->
+            <div id="alert-container"></div>
+
+            <form action="login_process.php" method="POST">
+
+                <div class="mb-3">
+                    <label for="user_id" class="form-label text-muted fw-semibold">User ID (Student / Employee
+                        ID)</label>
+                    <input type="text" class="form-control" id="user_id" name="user_id" placeholder="Enter your ID"
+                        required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="password" class="form-label text-muted fw-semibold">Password</label>
+                    <input type="password" class="form-control" id="password" name="password"
+                        placeholder="Enter your password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+
+                <div class="d-flex justify-content-between align-items-center mt-2">
+                    <a href="forgot_password.php" class="text-link small">Forgot Password?</a>
+                    <span class="small text-muted">New Student? <a href="register.html" class="text-link">Register
+                            here</a></span>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
+            const success = urlParams.get('success');
+
+            const alertContainer = document.getElementById('alert-container');
+
+            if (error) {
+                alertContainer.innerHTML = `<div class="alert alert-danger alert-custom alert-dismissible fade show" role="alert">
+                    ${decodeURIComponent(error)}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>`;
+            }
+            if (success) {
+                alertContainer.innerHTML = `<div class="alert alert-success alert-custom alert-dismissible fade show" role="alert">
+                    ${decodeURIComponent(success)}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>`;
+            }
+            if (error || success) {
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        });
+    </script>
 </body>
+
 </html>
